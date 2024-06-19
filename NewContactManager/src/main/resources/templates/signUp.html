@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body >
+	<section >
+		 <div class="row p-2 m-3"  >
+			 
+			 <div class="col-md-4 offset-md-4" style="background-color: #e2e2e2;">
+				 
+				 
+				 <div class="container text-center">
+					 <div class="alert" th:if="${session.message}" th:classappend="${session.message.type}" role="alert">
+        <p th:text="${session.message.content}"></p>
+        <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+    </div>
+
+                       
+					   <img th:src="@{../Images/membership.png}" style="height: 65px;">
+
+					 <h1>Register here!!</h1>
+				 </div>
+
+				 
+		 <form th:action="@{/do_Register}" method="post" th:object="${user}">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Your Name</label>
+    <input type="text" name="name" th:value="${user.name}"  th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
+    <div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}">
+        Please provide a valid city.
+      </div>
+   </div>
+   
+   <div class="form-group">
+    <label for="exampleInputEmail1">Your Email</label>
+    <input type="email" name="email" th:value="${user.email}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+   </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Your Password</label>
+    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  
+  
+
+
+<textarea name="about" th:text="${user.about}" rows="6" cols="60">write about yourself</textarea>
+
+<div class="form-check">
+    <input type="checkbox" name="agreement" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1"> Accept terms and condition</label>
+  </div>
+
+<div class="text-center">
+  <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-warning">Reset</button>
+
+  </div>
+  
+  
+  </form>
+				 
+				 
+			 </div>
+			 
+		 </div>
+	</section>
+</body>
+</html>
